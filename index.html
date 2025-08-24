@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL 2025 - Indian Premier League Official</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'xs': '375px',
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1280px',
+                    '2xl': '1536px',
+                    '3xl': '1920px',
+                    '4xl': '2560px'
+                },
+                extend: {
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem',
+                        '128': '32rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+        }
+        .ipl-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #1e40af 50%, #7c3aed 75%, #dc2626 100%);
+        }
+        .team-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        }
+        .team-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        .match-card {
+            transition: all 0.3s ease;
+        }
+        .match-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .floating-trophy {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .live-indicator {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .news-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .news-card:hover {
+            border-left-color: #ff6b35;
+            transform: translateX(8px);
+        }
+        .venue-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.9) 100%);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Mobile First - Base styles (320px+) */
+        .team-logo {
+            width: 50px;
+            height: 50px;
+        }
+        .stats-counter {
+            font-size: 1.5rem;
+        }
+        .floating-trophy {
+            font-size: 1.5rem;
+        }
+        
+        /* Small Mobile (375px+) */
+        @media (min-width: 375px) {
+            .team-logo {
+                width: 55px;
+                height: 55px;
+            }
+            .stats-counter {
+                font-size: 1.75rem;
+            }
+            .floating-trophy {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Large Mobile (425px+) */
+        @media (min-width: 425px) {
+            .team-logo {
+                width: 60px;
+                height: 60px;
+            }
+            .stats-counter {
+                font-size: 2rem;
+            }
+            .floating-trophy {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Small Tablet (640px+) */
+        @media (min-width: 640px) {
+            .team-logo {
+                width: 65px;
+                height: 65px;
+            }
+            .stats-counter {
+                font-size: 2.25rem;
+            }
+            .floating-trophy {
+                font-size: 3rem;
+            }
+            .team-card:hover {
+                transform: translateY(-6px) scale(1.01);
+            }
+        }
+        
+        /* Tablet (768px+) */
+        @media (min-width: 768px) {
+            .team-logo {
+                width: 70px;
+                height: 70px;
+            }
+            .stats-counter {
+                font-size: 2.5rem;
+            }
+            .floating-trophy {
+                font-size: 3.5rem;
+            }
+            .news-card:hover {
+                transform: translateX(12px);
+            }
+        }
+        
+        /* Large Tablet (1024px+) */
+        @media (min-width: 1024px) {
+            .team-logo {
+                width: 75px;
+                height: 75px;
+            }
+            .stats-counter {
+                font-size: 2.75rem;
+            }
+            .floating-trophy {
+                font-size: 4rem;
+            }
+        }
+        
+        /* Laptop (1280px+) */
+        @media (min-width: 1280px) {
+            .team-logo {
+                width: 80px;
+                height: 80px;
+            }
+            .stats-counter {
+                font-size: 3rem;
+            }
+            .floating-trophy {
+                font-size: 4.5rem;
+            }
+        }
+        
+        /* Desktop (1440px+) */
+        @media (min-width: 1440px) {
+            .team-logo {
+                width: 85px;
+                height: 85px;
+            }
+            .stats-counter {
+                font-size: 3.25rem;
+            }
+            .floating-trophy {
+                font-size: 5rem;
+            }
+        }
+        
+        /* Large Desktop (1920px+) */
+        @media (min-width: 1920px) {
+            .team-logo {
+                width: 90px;
+                height: 90px;
+            }
+            .stats-counter {
+                font-size: 3.5rem;
+            }
+            .floating-trophy {
+                font-size: 5.5rem;
+            }
+        }
+        
+        /* Ultra Wide (2560px+) */
+        @media (min-width: 2560px) {
+            .team-logo {
+                width: 100px;
+                height: 100px;
+            }
+            .stats-counter {
+                font-size: 4rem;
+            }
+            .floating-trophy {
+                font-size: 6rem;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .team-card:hover,
+            .match-card:hover,
+            .venue-card:hover,
+            .news-card:hover {
+                transform: none;
+            }
+            .team-card:active {
+                transform: scale(0.98);
+            }
+            .match-card:active {
+                transform: scale(0.98);
+            }
+        }
+        
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .team-logo {
+                border-width: 2px;
+            }
+        }
+        
+        /* Landscape orientation adjustments */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .floating-trophy {
+                display: none;
+            }
+            .stats-counter {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            .floating-trophy,
+            .live-indicator,
+            nav,
+            footer {
+                display: none;
+            }
+            .team-card,
+            .match-card,
+            .venue-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+        
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .floating-trophy,
+            .live-indicator,
+            .team-card,
+            .match-card,
+            .venue-card,
+            .news-card {
+                animation: none;
+                transition: none;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .team-card,
+            .venue-card {
+                background: linear-gradient(145deg, #1f2937 0%, #111827 100%);
+                color: white;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl sm:text-2xl font-bold">
+                            <span class="text-orange-500"><img src="logo.png" style="width: 70px; height: 50px;"></span>
+                           
+                        </h1>
+                    </div>
+                    <div class="hidden md:ml-6 lg:ml-10 md:flex md:space-x-4 lg:space-x-8">
+                        <a href="#" class="nav-link text-gray-700 hover:text-orange-500 px-2 lg:px-3 py-2 text-sm font-medium transition duration-300" onclick="showSection('home')">Home</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-orange-500 px-2 lg:px-3 py-2 text-sm font-medium transition duration-300" onclick="showSection('teams')">Teams</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-orange-500 px-2 lg:px-3 py-2 text-sm font-medium transition duration-300" onclick="showSection('schedule')">Schedule</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-orange-500 px-2 lg:px-3 py-2 text-sm lg:text-base font-medium transition duration-300" onclick="showSection('standings')">Points</a>
+                        <a href="#" class="nav-link text-gray-700 hover:text-orange-500 px-2 lg:px-3 py-2 text-sm font-medium transition duration-300" onclick="showSection('venues')">Venues</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-2">
+                    <a href="#" class="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium" onclick="showSection('home')">Home</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium" onclick="showSection('teams')">Teams</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium" onclick="showSection('schedule')">Schedule</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium" onclick="showSection('standings')">Points Table</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 px-3 py-2 text-sm font-medium" onclick="showSection('venues')">Venues</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <div id="home-section" class="section">
+        <!-- Hero Section -->
+        <div class="ipl-gradient text-white py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="floating-trophy absolute top-5 left-5 sm:top-10 sm:left-10 text-2xl sm:text-4xl md:text-5xl lg:text-6xl">🏆</div>
+                <div class="floating-trophy absolute top-10 right-10 sm:top-20 sm:right-20 text-xl sm:text-3xl md:text-4xl" style="animation-delay: -2s;">🏏</div>
+                <div class="floating-trophy absolute bottom-10 left-1/4 sm:bottom-20 text-2xl sm:text-4xl md:text-5xl" style="animation-delay: -4s;">⚡</div>
+                <div class="floating-trophy absolute bottom-5 right-5 sm:bottom-10 sm:right-10 text-lg sm:text-2xl md:text-3xl" style="animation-delay: -1s;">🎯</div>
+            </div>
+            <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-3 sm:mb-4 md:mb-6">
+                    <span class="text-yellow-300">IPL</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto px-2">The biggest cricket carnival returns! Experience the thrill, passion, and excitement of the Indian Premier League.</p>
+                <div class="flex flex-col xs:flex-row justify-center space-y-3 xs:space-y-0 xs:space-x-3 sm:space-x-4 mb-6 sm:mb-8 md:mb-12 px-4">
+                    <button class="bg-white text-blue-600 px-4 xs:px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-gray-100 transition duration-300 w-full xs:w-auto" onclick="showSection('schedule')">
+                        View Schedule
+                    </button>
+                    <button class="border-2 border-white text-white px-4 xs:px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-white hover:text-blue-600 transition duration-300 w-full xs:w-auto" onclick="showSection('teams')">
+                        Explore Teams
+                    </button>
+                </div>
+                
+                <!-- Tournament Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl mx-auto px-2">
+                    <div class="bg-white bg-opacity-20 p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl backdrop-blur-sm">
+                        <div class="stats-counter">10</div>
+                        <p class="text-xs sm:text-sm md:text-base font-medium">Teams</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl backdrop-blur-sm">
+                        <div class="stats-counter">74</div>
+                        <p class="text-xs sm:text-sm md:text-base font-medium">Matches</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl backdrop-blur-sm">
+                        <div class="stats-counter">12</div>
+                        <p class="text-xs sm:text-sm md:text-base font-medium">Venues</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl backdrop-blur-sm">
+                        <div class="stats-counter">47</div>
+                        <p class="text-xs sm:text-sm md:text-base font-medium">Days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Quick Stats -->
+        <div class="py-8 sm:py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Tournament Highlights</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl mb-4"><img src="orange cap.jpg" ></div>
+                        <h3 class="text-xl font-bold mb-2">Orange Cap</h3>
+                        <p class="text-gray-600 font-semibold">Virat Kohli</p>
+                        <p class="text-2xl font-bold text-orange-500">742 runs</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl mb-4"><img src="purpal cap.webp" ></div>
+                        <h3 class="text-xl font-bold mb-2">Purple Cap</h3>
+                        <p class="text-gray-600 font-semibold">Jasprit Bumrah</p>
+                        <p class="text-2xl font-bold text-purple-500">28 wickets</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl mb-4"><img src="50.jpeg" ></div>
+                        <h3 class="text-xl font-bold mb-2">Fastest 50</h3>
+                        <p class="text-gray-600 font-semibold">AB de Villiers</p>
+                        <p class="text-2xl font-bold text-yellow-500">16 balls</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="text-4xl mb-4"><img src="batting.jpeg"></div>
+                        <h3 class="text-xl font-bold mb-2">Most Sixes</h3>
+                        <p class="text-gray-600 font-semibold">Andre Russell</p>
+                        <p class="text-2xl font-bold text-green-500">52 sixes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teams Section -->
+    <div id="teams-section" class="section hidden">
+        <div class="py-8 sm:py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">IPL  Teams</h2>
+                    <p class="text-gray-600 text-lg">Meet the 10 franchises competing for glory</p>
+                </div>
+
+                <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+                    <!-- Mumbai Indians -->
+                    <div class="team-card p-3 sm:p-4 md:p-5 lg:p-6 rounded-lg sm:rounded-xl shadow-md text-center">
+                       <div> <img src="mi.webp"  style="height: 100PX;"></div>
+
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-1 sm:mb-2">Mumbai Indians</h3>
+                        <p class="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-3">5-time Champions</p>
+                        <div class="flex justify-center space-x-2 sm:space-x-4 text-xs text-gray-500 mb-2 sm:mb-3 md:mb-4">
+                            <span class="hidden sm:inline">🏆 2013, 2015, 2017, 2019, 2020</span>
+                            <span class="sm:hidden">🏆 5 Titles</span>
+                        </div>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-1.5 sm:py-2 rounded-md sm:rounded-lg text-xs sm:text-sm transition duration-300" onclick="showTeamDetails('mi')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Chennai Super Kings -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="csk22.png"  style="height: 100PX;"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Chennai Super Kings</h3>
+                        <p class="text-gray-600 text-sm mb-3">4-time Champions</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 2010, 2011, 2018, 2021</span>
+                        </div>
+                        <button class="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('csk')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Royal Challengers Bangalore -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="rcb.jpeg" style="height: 120PX;"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Royal Challengers</h3>
+                        <p class="text-gray-600 text-sm mb-3">Bangalore</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 Runners-up: 2009, 2011, 2016</span>
+                        </div>
+                        <button class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('rcb')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Kolkata Knight Riders -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="kkr.png"  style="height: 100PX;"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Kolkata Knight Riders</h3>
+                        <p class="text-gray-600 text-sm mb-3">2-time Champions</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 2012, 2014</span>
+                        </div>
+                        <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('kkr')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Delhi Capitals -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="dc.jpeg"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Delhi Capitals</h3>
+                        <p class="text-gray-600 text-sm mb-3">Runners-up 2020</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 Runners-up: 2020</span>
+                        </div>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('dc')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Rajasthan Royals -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                         <div> <img src="rr.png"  style="height: 100PX;"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Rajasthan Royals</h3>
+                        <p class="text-gray-600 text-sm mb-3">Inaugural Champions</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 2008</span>
+                        </div>
+                        <button class="w-full bg-pink-600 hover:bg-pink-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('rr')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Punjab Kings -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                         <div> <img src="punjab.jpeg"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Punjab Kings</h3>
+                        <p class="text-gray-600 text-sm mb-3">Runners-up 2014</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 Runners-up: 2014</span>
+                        </div>
+                        <button class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('pbks')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Sunrisers Hyderabad -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                       <div> <img src="srh.jpeg"></div>
+
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Sunrisers Hyderabad</h3>
+                        <p class="text-gray-600 text-sm mb-3">Champions 2016</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 2016</span>
+                        </div>
+                        <button class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('srh')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Gujarat Titans -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="gt.jpeg"></div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Gujarat Titans</h3>
+                        <p class="text-gray-600 text-sm mb-3">Champions 2022</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 2022</span>
+                        </div>
+                        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('gt')">
+                            View Squad
+                        </button>
+                    </div>
+
+                    <!-- Lucknow Super Giants -->
+                    <div class="team-card p-6 rounded-xl shadow-md text-center">
+                        <div> <img src="lsg.jpeg"></div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Lucknow Super Giants</h3>
+                        <p class="text-gray-600 text-sm mb-3">Playoffs 2022, 2023</p>
+                        <div class="flex justify-center space-x-4 text-xs text-gray-500 mb-4">
+                            <span>🏆 Playoffs: 2022, 2023</span>
+                        </div>
+                        <button class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-2 rounded-lg transition duration-300" onclick="showTeamDetails('lsg')">
+                            View Squad
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Schedule Section -->
+    <div id="schedule-section" class="section hidden">
+        <div class="py-8 sm:py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">IPL Schedule</h2>
+                    <p class="text-gray-600 text-lg">Complete fixture list for the tournament</p>
+                </div>
+
+                <!-- Schedule Filter -->
+                <div class="flex flex-wrap justify-center mb-8 gap-2">
+                    <button class="schedule-filter active bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium" data-filter="all">All Matches</button>
+                    <button class="schedule-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium" data-filter="today">Today</button>
+                    <button class="schedule-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium" data-filter="upcoming">Upcoming</button>
+                    <button class="schedule-filter bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium" data-filter="completed">Completed</button>
+                </div>
+
+                <!-- Matches Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="matches-container">
+                    <!-- Match 1 -->
+                    <div class="match-card bg-white rounded-xl shadow-md p-6" data-status="live">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                                <span class="text-red-600 font-medium">Today</span>
+                            </div>
+                            <span class="text-gray-500 text-sm">Match 45 • Qualifier 1</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="punjab.jpeg" style="width: 70px; height: 70px;">
+                                <div>
+                                    <h4 class="font-bold">Punjab Kings</h4>
+                                    
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-bold">VS</div>
+                                <div class="text-sm text-gray-500">Over 20</div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="text-right">
+                                    <h4 class="font-bold">Royal Challengers</h4>
+                                    
+                                </div>
+                                <img src="rcb.jpeg" style="width: 70px; height: 70px;">
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600">📍 Wankhede Stadium, Mumbai</span>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match 2 -->
+                    <div class="match-card bg-white rounded-xl shadow-md p-6" data-status="upcoming">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Upcoming</span>
+                            <span class="text-gray-500 text-sm">Match 46 • Eliminator</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="csk22.png" style="width: 70px; height: 70px;">
+                                <div>
+                                    <h4 class="font-bold">Chennai Super Kings</h4>
+                                   
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-bold">VS</div>
+                                <div class="text-sm text-gray-500">7:30 PM</div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="text-right">
+                                    <h4 class="font-bold">Kolkata Knight Riders</h4>
+                                    
+                                </div>
+                                <img src="kkr.png" style="width: 70px; height: 70px;">
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600">📍 Eden Gardens, Kolkata</span>
+                                <span class="text-blue-600">Tomorrow, May 25</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match 3 -->
+                    <div class="match-card bg-white rounded-xl shadow-md p-6" data-status="completed">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">Completed</span>
+                            <span class="text-gray-500 text-sm">Match 44 • League</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                               <img src="dc.jpeg" style="width: 70px; height: 70px;">
+                                <div>
+                                    <h4 class="font-bold">Delhi Capitals</h4>
+                                    <p class="text-lg font-bold">178/7 (20)</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-bold text-green-600">WON</div>
+                                <div class="text-sm text-gray-500">by 15 runs</div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="text-right">
+                                    <h4 class="font-bold">Punjab Kings</h4>
+                                    <p class="text-lg font-bold">163/8 (20)</p>
+                                </div>
+                                <img src="punjab.jpeg" style="width: 70px; height: 70px;">
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600">📍 Arun Jaitley Stadium, Delhi</span>
+                                <span class="text-gray-500">Yesterday, May 22</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Match 4 -->
+                    <div class="match-card bg-white rounded-xl shadow-md p-6" data-status="upcoming">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Upcoming</span>
+                            <span class="text-gray-500 text-sm">Match 47 • Qualifier 2</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                               <img src="gt.jpeg" style="width: 70px; height: 70px;">
+                                <div>
+                                    <h4 class="font-bold">Gujarat Titans</h4>
+                                    
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-bold">VS</div>
+                                <div class="text-sm text-gray-500">7:30 PM</div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="text-right">
+                                    <h4 class="font-bold">Rajasthan Royals</h4>
+                                    <p class="text-gray-500">Inaugural Champions</p>
+                                </div>
+                                <img src="rr.png" style="width: 70px; height: 70px;">
+                            </div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600">📍 Narendra Modi Stadium, Ahmedabad</span>
+                                <span class="text-blue-600">May 26, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-8">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition duration-300">
+                        Load More Matches
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Points Table Section -->
+    <div id="standings-section" class="section hidden">
+        <div class="py-8 sm:py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Points Table 2025</h2>
+                    <p class="text-gray-600 text-lg">Current standings after 44 matches</p>
+                </div>
+
+                <div class="bg-white rounded-lg sm:rounded-xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[600px]">
+                            <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                                <tr>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold">Pos</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold">Team</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm font-semibold">M</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm font-semibold">W</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm font-semibold">L</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm font-semibold">NRR</th>
+                                    <th class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm font-semibold">Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="bg-green-50 hover:bg-green-100 transition duration-200">
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4">
+                                        <div class="flex items-center">
+                                            <span class="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-1 sm:mr-2">1</span>
+                                            <span class="text-green-600 text-xs font-bold">Q</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4">
+                                        <div class="flex items-center space-x-2 sm:space-x-3">
+                                            <img src="mi.webp" alt="Mumbai Indians" class="w-6 h-6 sm:w-8 sm:h-8">
+                                             
+                                            <span class="font-semibold text-xs sm:text-sm md:text-base">Mumbai Indians</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm">14</td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4 text-center font-bold text-green-600 text-xs sm:text-sm">10</td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm">4</td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4 text-center text-xs sm:text-sm">+0.825</td>
+                                    <td class="px-2 sm:px-4 py-3 sm:py-4 text-center font-bold text-sm sm:text-base md:text-lg">20</td>
+                                </tr>
+                                <tr class="bg-green-50 hover:bg-green-100 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-2">2</span>
+                                            <span class="text-green-600 text-xs font-bold">Q</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                           <img src="rcb.jpeg" alt="Royal Challengers Bangalore" class="w-8 h-8">
+                                            <span class="font-semibold">Royal Challengers Bangalore</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center font-bold text-green-600">9</td>
+                                    <td class="px-4 py-4 text-center">5</td>
+                                    <td class="px-4 py-4 text-center">+0.642</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">18</td>
+                                </tr>
+                                <tr class="bg-blue-50 hover:bg-blue-100 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-2">3</span>
+                                            <span class="text-blue-600 text-xs font-bold">Q</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="csk22.png" alt="Chennai Super Kings" class="w-8 h-8">
+                                            <span class="font-semibold">Chennai Super Kings</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center font-bold text-green-600">8</td>
+                                    <td class="px-4 py-4 text-center">6</td>
+                                    <td class="px-4 py-4 text-center">+0.315</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">16</td>
+                                </tr>
+                                <tr class="bg-blue-50 hover:bg-blue-100 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center">
+                                            <span class="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold mr-2">4</span>
+                                            <span class="text-blue-600 text-xs font-bold">Q</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="kkr.png" alt="Kolkata Knight Riders" class="w-8 h-8">
+                                            <span class="font-semibold">Kolkata Knight Riders</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center font-bold text-green-600">8</td>
+                                    <td class="px-4 py-4 text-center">6</td>
+                                    <td class="px-4 py-4 text-center">+0.128</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">16</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="gt.jpeg" alt="Gujarat Titans" class="w-8 h-8">
+                                            <span class="font-semibold">Gujarat Titans</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">7</td>
+                                    <td class="px-4 py-4 text-center">7</td>
+                                    <td class="px-4 py-4 text-center">-0.045</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">14</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="rr.png" alt="Rajasthan Royals" class="w-8 h-8">
+                                            <span class="font-semibold">Rajasthan Royals</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">7</td>
+                                    <td class="px-4 py-4 text-center">7</td>
+                                    <td class="px-4 py-4 text-center">-0.182</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">14</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="dc.jpeg" alt="Delhi Capitals" class="w-8 h-8">
+                                            <span class="font-semibold">Delhi Capitals</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">6</td>
+                                    <td class="px-4 py-4 text-center">8</td>
+                                    <td class="px-4 py-4 text-center">-0.298</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">12</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">8</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="lsg22.jpeg" alt="Sunrisers Hyderabad" class="w-8 h-8">
+                                            <span class="font-semibold">Lucknow Super Giants</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">5</td>
+                                    <td class="px-4 py-4 text-center">9</td>
+                                    <td class="px-4 py-4 text-center">-0.456</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">10</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">9</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="srh.jpeg" alt="Sunrisers Hyderabad" class="w-8 h-8">
+                                            <span class="font-semibold">Sunrisers Hyderabad</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">4</td>
+                                    <td class="px-4 py-4 text-center">10</td>
+                                    <td class="px-4 py-4 text-center">-0.672</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">8</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-4 py-4">
+                                        <span class="w-6 h-6 bg-gray-400 text-white rounded-full flex items-center justify-center text-xs font-bold">10</span>
+                                    </td>
+                                    <td class="px-4 py-4">
+                                        <div class="flex items-center space-x-3">
+                                            <img src="punjab.jpeg" alt="Punjab Kings" class="w-8 h-8">
+                                            <span class="font-semibold">Punjab Kings</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 text-center">14</td>
+                                    <td class="px-4 py-4 text-center">3</td>
+                                    <td class="px-4 py-4 text-center">11</td>
+                                    <td class="px-4 py-4 text-center">-0.845</td>
+                                    <td class="px-4 py-4 text-center font-bold text-lg">6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="bg-gray-50 px-6 py-4">
+                        <div class="flex flex-wrap gap-4 text-sm">
+                            <div class="flex items-center">
+                                <span class="w-4 h-4 bg-green-500 rounded mr-2"></span>
+                                <span>Qualified for Playoffs</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-4 h-4 bg-blue-500 rounded mr-2"></span>
+                                <span>Playoff Contenders</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-4 h-4 bg-gray-400 rounded mr-2"></span>
+                                <span>Eliminated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Venues Section -->
+    <div id="venues-section" class="section hidden">
+        <div class="py-8 sm:py-16 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 sm:mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">IPL 2025 Venues</h2>
+                    <p class="text-gray-600 text-lg">Iconic stadiums hosting the cricket carnival</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <!-- Wankhede Stadium -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                      
+                                <img src="hg.jpeg">
+                                
+                       
+                        <h3 class="text-xl font-bold mb-2">Wankhede Stadium</h3>
+                        <p class="text-gray-600 mb-3">Mumbai • Capacity: 33,108</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-blue-500 mr-2"></i>
+                                <span>Home: Mumbai Indians</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 8</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 178</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Batting Paradise</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- Eden Gardens -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                       <img src="hg2.jpeg">
+                        <h3 class="text-xl font-bold mb-2">Eden Gardens</h3>
+                        <p class="text-gray-600 mb-3">Kolkata • Capacity: 66,349</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-purple-500 mr-2"></i>
+                                <span>Home: Kolkata Knight Riders</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 7</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 165</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Spin Friendly</span>
+                            <button class="text-purple-600 hover:text-purple-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- M. Chinnaswamy Stadium -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                       <img src="hg3.jpeg">
+                        <h3 class="text-xl font-bold mb-2">M. Chinnaswamy Stadium</h3>
+                        <p class="text-gray-600 mb-3">Bangalore • Capacity: 40,000</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-red-500 mr-2"></i>
+                                <span>Home: Royal Challengers Bangalore</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 8</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 185</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">High Scoring</span>
+                            <button class="text-red-600 hover:text-red-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- MA Chidambaram Stadium -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                       <img src="hg4.jpeg">
+                        <h3 class="text-xl font-bold mb-2">MA Chidambaram Stadium</h3>
+                        <p class="text-gray-600 mb-3">Chennai • Capacity: 50,000</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-yellow-500 mr-2"></i>
+                                <span>Home: Chennai Super Kings</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 7</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 158</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">Spin Haven</span>
+                            <button class="text-yellow-600 hover:text-yellow-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- Arun Jaitley Stadium -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                       <img src="hg4.jpeg">
+                        <h3 class="text-xl font-bold mb-2">Arun Jaitley Stadium</h3>
+                        <p class="text-gray-600 mb-3">Delhi • Capacity: 41,820</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-indigo-500 mr-2"></i>
+                                <span>Home: Delhi Capitals</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 7</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 172</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded">Balanced</span>
+                            <button class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+
+                    <!-- Narendra Modi Stadium -->
+                    <div class="venue-card p-6 rounded-xl shadow-lg">
+                       <img src="hg2.jpeg">
+                        <h3 class="text-xl font-bold mb-2">Narendra Modi Stadium</h3>
+                        <p class="text-gray-600 mb-3">Ahmedabad • Capacity: 132,000</p>
+                        <div class="space-y-2 text-sm text-gray-600 mb-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-home text-green-500 mr-2"></i>
+                                <span>Home: Gujarat Titans</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-green-500 mr-2"></i>
+                                <span>Matches: 8</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>
+                                <span>Avg Score: 175</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">World's Largest</span>
+                            <button class="text-green-600 hover:text-green-800 font-medium text-sm">View Details →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">
+                        <span class="text-orange-500">IPL</span>
+                       
+                    </h3>
+                    <p class="text-gray-400 mb-4">The biggest cricket carnival in the world. Experience the thrill, passion, and excitement.</p>
+                    <div class="flex space-x-4">
+                        <i class="fab fa-twitter text-gray-400 hover:text-white cursor-pointer transition duration-300 text-xl"></i>
+                        <i class="fab fa-facebook text-gray-400 hover:text-white cursor-pointer transition duration-300 text-xl"></i>
+                        <i class="fab fa-instagram text-gray-400 hover:text-white cursor-pointer transition duration-300 text-xl"></i>
+                        <i class="fab fa-youtube text-gray-400 hover:text-white cursor-pointer transition duration-300 text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-300" onclick="showSection('schedule')">Schedule</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300" onclick="showSection('standings')">Points Table</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300" onclick="showSection('teams')">Teams</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300" onclick="showSection('venues')">Venues</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Teams</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-300">Mumbai Indians</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Chennai Super Kings</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Royal Challengers Bangalore</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Kolkata Knight Riders</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">More</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition duration-300">Stats</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Fantasy</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Mobile App</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Tickets</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Indian Premier League. All rights reserved. The biggest cricket carnival continues!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        function showSection(sectionName) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('text-orange-500'));
+            
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Schedule filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const scheduleFilters = document.querySelectorAll('.schedule-filter');
+            
+            scheduleFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    scheduleFilters.forEach(f => {
+                        f.classList.remove('active', 'bg-blue-600', 'text-white');
+                        f.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    
+                    this.classList.add('active', 'bg-blue-600', 'text-white');
+                    this.classList.remove('bg-gray-200', 'text-gray-700');
+                    
+                    // Filter logic would go here
+                    const filterType = this.getAttribute('data-filter');
+                    console.log('Filtering by:', filterType);
+                });
+            });
+        });
+
+        // Team details functionality
+        function showTeamDetails(teamId) {
+            const teamData = {
+                'mi': {
+                    name: 'Mumbai Indians',
+                    captain: 'Rohit Sharma',
+                    coach: 'Mark Boucher',
+                    titles: 5,
+                    homeGround: 'Wankhede Stadium'
+                },
+                'csk': {
+                    name: 'Chennai Super Kings',
+                    captain: 'MS Dhoni',
+                    coach: 'Stephen Fleming',
+                    titles: 4,
+                    homeGround: 'MA Chidambaram Stadium'
+                },
+                'rcb': {
+                    name: 'Royal Challengers Bangalore',
+                    captain: 'Virat Kohli',
+                    coach: 'Andy Flower',
+                    titles: 1,
+                    homeGround: 'M. Chinnaswamy Stadium'
+                },
+                'kkr': {
+                    name: 'Kolkata Knight Riders',
+                    captain: 'Shreyas Iyer',
+                    coach: 'Brendon McCullum',
+                    titles: 2,
+                    homeGround: 'Eden Gardens'
+                },
+                'gt': {
+                    name: 'Gujarat Titans',
+                    captain: 'Hardik Pandya',
+                    coach: 'Ashish Nehra',
+                    titles: 1,
+                    homeGround: 'Narendra Modi Stadium'
+                },
+                'rr': {
+                    name: 'Rajasthan Royals',
+                    captain: 'Sanju Samson',
+                    coach: 'Kumar Sangakkara',
+                    titles: 1,
+                    homeGround: 'Sawai Mansingh Stadium'
+                },
+                'dc': {
+                    name: 'Delhi Capitals',
+                    captain: 'Rishabh Pant',
+                    coach: 'Ricky Ponting',
+                    titles: 0,
+                    homeGround: 'Arun Jaitley Stadium'
+                },
+                'lsg': {
+                    name: 'Lucknow Super Giants',
+                    captain: 'K.L. Rahul',
+                    coach: 'Andy Flower',
+                    titles: 0,
+                    homeGround: 'BRSABV Ekana Cricket Stadium'
+                },
+                'srh': {
+                    name: 'Sunrisers Hyderabad',
+                    captain: 'Aiden Markram',
+                    coach: 'Trevor Bayliss',
+                    titles: 1,
+                    homeGround: 'Rajiv Gandhi International Cricket Stadium'
+                },
+                'pbks': {
+                    name: 'Punjab Kings',
+                    captain: 'Shikhar Dhawan',
+                    coach: 'Anil Kumble',
+                    titles: 0,
+                    homeGround: 'Punjab Cricket Association IS Bindra Stadium'
+                }
+            };
+            
+            const team = teamData[teamId];
+            if (team) {
+                alert(`${team.name}\nCaptain: ${team.captain}\nCoach: ${team.coach}\nTitles: ${team.titles}\nHome: ${team.homeGround}`);
+            }
+        }
+
+        // Add smooth scrolling and animations
+        document.querySelectorAll('.team-card, .match-card, .venue-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Live score update simulation
+        function updateLiveScore() {
+            const liveMatches = document.querySelectorAll('[data-status="live"]');
+            liveMatches.forEach(match => {
+                // Simulate score updates (in a real app, this would come from an API)
+                const scoreElements = match.querySelectorAll('.text-2xl.font-bold');
+                if (scoreElements.length >= 2) {
+                    // This is just for demo - in reality, you'd fetch from an API
+                    console.log('Updating live scores...');
+                }
+            });
+        }
+
+        // Update live scores every 30 seconds
+        setInterval(updateLiveScore, 30000);
+
+        // Add click handlers for news cards
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('h4').textContent;
+                alert(`Opening article: ${title}`);
+            });
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('IPL 2025 website loaded successfully!');
+            
+            // Add some interactive elements
+            const liveIndicators = document.querySelectorAll('.live-indicator');
+            liveIndicators.forEach(indicator => {
+                setInterval(() => {
+                    indicator.style.opacity = indicator.style.opacity === '0.5' ? '1' : '0.5';
+                }, 1000);
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuButton = event.target.closest('button');
+            
+            if (!mobileMenu.contains(event.target) && !menuButton) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9740f3e857fb3b27',t:'MTc1NjAxODYxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
